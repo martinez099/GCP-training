@@ -23,6 +23,7 @@ npm install -g wetty
 
 adduser --disabled-password --gecos "" trainee
 echo -e "PASSWORD\nPASSWORD" | sudo passwd trainee 
+groupadd docker
 usermod -aG docker $USER
 sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
 systemctl restart sshd
@@ -58,6 +59,7 @@ apt-get -y install docker-ce
 
 # create a docker subnet
 
+mkdir /opt/redislabs
 echo 'nameserver 172.18.0.20' >  /opt/redislabs/resolv.conf
 docker network create --subnet=172.18.0.0/16 redislabs
 
@@ -139,7 +141,7 @@ alias redis="sudo docker run -v /opt/redislabs/resolv.conf:/etc/resolv.conf -v /
 ```   
    
    Now you can access the instance from browser 
-   http://publicip:21000
+   http://publicip:21000/wetty
    
 
 
